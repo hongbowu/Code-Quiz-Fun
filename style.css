@@ -5,6 +5,7 @@
 #timer {
   display: flex;
   justify-content: flex-end;
+  align-items: flex-start;
 }
 .container {
   display: flex;
