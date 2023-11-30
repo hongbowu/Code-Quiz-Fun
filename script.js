@@ -26,11 +26,12 @@ function setTime() {
     timeEl.textContent = `time: ${secondsLeft}`;
 
     if (secondsLeft <= 0) {
+      gameOver();
       clearInterval(timerInterval);
-      // gameOver();
       secondsLeft = 0;
-
       //end test.
+      // } else if (questionStart()) {
+      //   clearInterval(timerInterval);
     }
   }, 1000);
 }
