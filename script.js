@@ -90,6 +90,12 @@ function questionStart() {
 
   var i = 0;
   function keepRunning(event) {
+    if (event.target.value === quizBody[i].correctAnswer) {
+      feedBack.textContent = "Correct!";
+    } else {
+      feedBack.textContent = "Wrong";
+      secondsLeft -= 15;
+    }
     i++;
     quizBodyEl.textContent = quizBody[i].question;
     answer1El.textContent = quizBody[i].answer1;
@@ -98,12 +104,6 @@ function questionStart() {
     answer4El.textContent = quizBody[i].answer4;
     var currentAnswer = event.target;
     console.log(currentAnswer);
-    if (event.target.value === quizBody[i].correctAnswer) {
-      feedBack.textContent = "Correct!";
-    } else {
-      feedBack.textContent = "Wrong";
-      secondsLeft -= 15;
-    }
 
     if (i === quizBody.length) {
       console.log("game over");
@@ -161,27 +161,32 @@ function renderHighScores() {
     listName.appendChild(button);
     highScore.appendChild(listName);
   }
+  var storedHighScores = JSON.parse(localStorage.getItem("highScores"));
+
+  if (storedHighScores !== null) {
+    highScores = storedHighScores;
+  }
 
   userData.setAttribute("style", "display: none;");
   quizBodyEl.setAttribute("style", "display: none;");
   highScore.setAttribute("style", "display: block;");
 }
 
-function init() {
-  var storedHighScores = JSON.parse(localStorage.getItem("highScores"));
+// function init() {
+//   var storedHighScores = JSON.parse(localStorage.getItem("highScores"));
 
-  if (storedHighScores !== null) {
-    highScores = storedHighScores;
-  }
-  renderHighScores();
-}
+//   if (storedHighScores !== null) {
+//     highScores = storedHighScores;
+//   }
+//   renderHighScores();
+// }
 
 function storeHightScores() {
   localStorage.setItem("highScores", JSON.stringify(highScores));
 }
 
 //add function for show up high scores.
-reviewHighScore.addEventListener("click", init);
+// reviewHighScore.addEventListener("click");
 storeScore.addEventListener("click", function (event) {
   event.preventDefault();
   var userInput = storeUserName.value;
@@ -208,5 +213,5 @@ highScore.addEventListener("click", function (event) {
     highScore.setAttribute("style", "display: block;");
   }
 });
-init();
+
 start.addEventListener("click", startQuiz);
