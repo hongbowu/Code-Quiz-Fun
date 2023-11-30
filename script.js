@@ -27,7 +27,7 @@ function setTime() {
 
     if (secondsLeft <= 0) {
       clearInterval(timerInterval);
-      gameOver();
+      // gameOver();
       secondsLeft = 0;
 
       //end test.
@@ -144,14 +144,16 @@ function gameOver() {
   quizBodyEl.textContent = `Game Over, your score is ${scores}`;
   feedBack.textContent = "";
   userData.setAttribute("style", "display: block;");
+  timeEl.setAttribute("style", "display: none;");
 }
 //add local storage for scores
-var highScores = [];
+var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
 function renderHighScores() {
   storeUserName.innerHTML = "";
-
-  for (var j = 0; j < highScore.length; j++) {
+  highScore.innerHTML = "";
+  console.log(highScores);
+  for (var j = 0; j < highScores.length; j++) {
     var lastScore = highScores[j];
     var listName = document.createElement("li");
     listName.textContent = lastScore;
@@ -162,11 +164,7 @@ function renderHighScores() {
 
     listName.appendChild(button);
     highScore.appendChild(listName);
-  }
-  var storedHighScores = JSON.parse(localStorage.getItem("highScores"));
-
-  if (storedHighScores !== null) {
-    highScores = storedHighScores;
+    // console.log(lastScore);
   }
 
   userData.setAttribute("style", "display: none;");
@@ -188,7 +186,7 @@ storeScore.addEventListener("click", function (event) {
     return;
   }
 
-  highScores.push(storeUserName.value);
+  highScores.push(`${storeUserName.value}:${scores}`);
   storeUserName.value = "";
   storeHightScores();
   renderHighScores();
@@ -197,6 +195,7 @@ highScore.addEventListener("click", function (event) {
   var element = event.target;
 
   if (element.matches("button") === true) {
+    console.log(typeof highScores);
     var index = element.parentElement.getAttribute("data-index");
     highScores.splice(index, 1);
 
@@ -208,4 +207,8 @@ highScore.addEventListener("click", function (event) {
   }
 });
 
+reviewHighScore.addEventListener("click", function () {
+  changeLayout();
+  renderHighScores();
+});
 start.addEventListener("click", startQuiz);
