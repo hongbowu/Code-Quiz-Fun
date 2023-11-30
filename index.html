@@ -12,15 +12,22 @@
     <section class="container">
       <h1>Welcome to Code Quiz Fun</h1>
       <p id="questions"></p>
-      <div class="answer" id="answers1"></div>
-      <div class="answer" id="answers2"></div>
-      <div class="answer" id="answers3"></div>
-      <div class="answer" id="answers4"></div>
+      <button style="display: none" id="answers1"></button>
+      <button style="display: none" id="answers2"></button>
+      <button style="display: none" id="answers3"></button>
+      <button style="display: none" id="answers4"></button>
+      <form class="userData" style="display: none">
+        <label for="name">name</label>
+        <input type="text" id="name" />
+        <input id="storage" type="submit" value="Submit" />
+      </form>
+      <ul id="highScore" style="display: none"></ul>
       <p class="default-page">
         Try to answer the following code-related questions within the time
         limit. Keep in mind that incorrect answers will penalize your score/time
         by ten seconds!
       </p>
+      <p id="feedback"></p>
       <button id="Start">Start Quiz</button>
     </section>
 
