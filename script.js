@@ -15,13 +15,16 @@ var highScore = document.getElementById("highScore");
 //need add a timer.
 var scores;
 var secondsLeft = 60;
-
+var timerInterval;
 timeEl.textContent = `time: ${secondsLeft}`;
 
 //need a start point.
+function stopTimer() {
+  clearInterval(timerInterval);
+}
 
 function setTime() {
-  var timerInterval = setInterval(function () {
+  timerInterval = setInterval(function () {
     secondsLeft--;
     timeEl.textContent = `time: ${secondsLeft}`;
 
@@ -146,6 +149,7 @@ function gameOver() {
   feedBack.textContent = "";
   userData.setAttribute("style", "display: block;");
   timeEl.setAttribute("style", "display: none;");
+  stopTimer();
 }
 //add local storage for scores
 var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
